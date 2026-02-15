@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For You 💗</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+
+/* PURE LAVENDER BACKGROUND */
+html, body{
+margin:0;
+padding:0;
+height:100%;
+background:#bb61f6; /* lavender */
+font-family:'Poppins', sans-serif;
+color:#FAF9F6; /* off white */
+overflow:hidden;
+}
+
+/* SLIDER */
+.slider{
+display:flex;
+width:400vw;
+height:100vh;
+transition:transform 0.8s ease;
+}
+
+/* EACH PAGE */
+.page{
+width:100vw;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+position:relative;
+background:#bb61f6;
+}
+
+/* TITLE */
+.title{
+font-family:'Pacifico', cursive;
+font-size:42px;
+text-align:center;
+color:#FAF9F6;
+text-shadow:0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* ARROW */
+.arrow{
+position:absolute;
+bottom:40px;
+background:#bb61f6;
+color:#333;
+border-radius:50%;
+padding:14px 18px;
+cursor:pointer;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* PHOTO WINDOW */
+.photo-window{
+position:absolute;
+width:150px;
+height:200px;
+background:#f3efff;
+padding:8px;
+border-radius:15px;
+box-shadow:0 15px 35px rgba(0,0,0,0.25);
+}
+
+.photo-window img{
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius:10px;
+}
+
+/* HEARTS */
+.heart{
+position:fixed;
+bottom:-40px;
+animation:float 6s linear infinite;
+pointer-events:none;
+}
+
+@keyframes float{
+0%{
+transform:translateY(0);
+opacity:1;
+}
+100%{
+transform:translateY(-110vh);
+opacity:0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="intro" src="intro.mp3"></audio>
+<audio id="song1" src="song1.mp3"></audio>
+<audio id="song2" src="song2.mp3"></audio>
+
+<div class="slider" id="slider">
+
+<!-- PAGE 1 -->
+<div class="page">
+<div class="title">Happy Birthday 💗</div>
+<div class="arrow" onclick="nextPage()">➡</div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+
+<div class="photo-window" style="top:80px; left:40px;">
+<img src="herphoto1.jpg">
+</div>
+
+<div class="photo-window" style="top:220px; right:50px;">
+<img src="herphoto2.jpg">
+</div>
+
+<div class="photo-window" style="bottom:150px; left:100px;">
+<img src="herphoto3.jpg">
+</div>
+
+<div class="arrow" onclick="nextPage()">➡</div>
+
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+<div class="title">
+You are the best thing that ever happened to me 💌
+</div>
+<div class="arrow" onclick="nextPage()">➡</div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page">
+
+<div class="photo-window" style="top:100px; left:80px;">
+<img src="herphoto4.jpg">
+</div>
+
+<div class="photo-window" style="bottom:160px; right:100px;">
+<img src="herphoto5.jpg">
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let currentPage = 0;
+
+function nextPage(){
+
+currentPage++;
+
+document.getElementById("slider").style.transform =
+"translateX(-"+currentPage*100+"vw)";
+
+/* stop all */
+intro.pause();
+song1.pause();
+song2.pause();
+
+/* play based on page */
+if(currentPage === 1){
+song1.currentTime = 0;
+song1.play();
+}
+
+if(currentPage === 3){
+song2.currentTime = 0;
+song2.play();
+}
+
+}
+
+/* start intro on first click */
+document.body.addEventListener("click", function(){
+intro.play();
+},{ once:true });
+
+/* HEARTS 💗 */
+setInterval(function(){
+
+let heart = document.createElement("div");
+
+heart.className = "heart";
+heart.innerHTML = "💗";
+
+heart.style.left = Math.random()*100 + "vw";
+heart.style.fontSize = (16 + Math.random()*24) + "px";
+
+document.body.appendChild(heart);
+
+setTimeout(function(){
+heart.remove();
+},6000);
+
+},500);
+
+</script>
+
+</body>
+</html>
